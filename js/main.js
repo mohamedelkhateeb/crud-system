@@ -1,95 +1,139 @@
-let title = document.getElementById('title')
-let price = document.getElementById('price')
-let taxes = document.getElementById('taxes')
-let ads = document.getElementById('ads')
-let discount = document.getElementById('discount')
-let count = document.getElementById('count')
-let category = document.getElementById('category')
-let create = document.getElementById('create')
-let total = document.getElementById('total')
-let clear = document.getElementById('clear')
+//Get elements
+
+let title =document.getElementById('title')
+let price =document.getElementById('price')
+let taxes =document.getElementById('taxes')
+let ads =document.getElementById('ads')
+let discount =document.getElementById('discount')
+let total =document.getElementById('total')
+let category =document.getElementById('category')
+let count =document.getElementById('count')
+let create =document.getElementById('create')
+let clearPro =document.getElementById('clear')
+
+let mood = 'upadate'
+let aii;
 
 
-//get total
+//How to get the total price.
 
 function getTotal(){
-    if (price.value != ' '){
-    let result =    (+price.value + +taxes.value + +ads.value ) - discount.value;
-    total.innerHTML = result;
-    total.style.backgroundColor = "#040"
-    }else {
-        total.innerHTML = '';
-        total.style.backgroundColor = "#red"
+    if(price.value != '') {
+        let resulte = (+price.value + +taxes.value + +ads.value ) - +discount.value
+        total.innerHTML = `Resulte : ${resulte}`
+    }
+    else{
+        total.innerHTML = 'Resulte : '
     }
 }
 
-//get total
 
 
+//How to Create the product and store it.
+let dataArray;
 
-//create product
+// if (localStorage.products !=null) {
+//     dataArray = JSON.parse(localStorage.products )
+// }
+// else {
+//     dataArray = []
+// }
 
-let proArr;
+dataArray = []
 
-if (localStorage.products !=null) {
-    proArr = JSON.parse(localStorage.products )
-}
-else {
-    proArr = []
-}
-
-
-create.onclick = function (){
-    let ProObj = {
-        
-        title : title.value,
-        price : price.value,
-        taxes : taxes.value,
-        ads : ads.value,
-        discount : discount.value,
-        total : total.innerHTML,
-        count :count.value,
-        category : category.value
+create.onclick = function() {
+    let proObj = {
+        title: title.value,
+        price: price.value,
+        taxes:taxes.value,
+        ads:ads.value,
+        discount:discount.value,
+        category:category.value,
+        count:count.value
     }
-    
-    proArr.push(ProObj)
 
-    localStorage.setItem( "products" , JSON.stringify(proArr)   )
-    showData()
+
+    if(mood === 'create') {
+        if(proObj.count > 1) {
+            for(let i = 0; i<proObj.count; i++) {
+                dataArray.push(proObj)
+            }
+        }
+        else{
+            dataArray.push(proObj)
+        }
+    }else{
+        dataArray[aii] = proObj;
+        mood = 'create'
+        create.innerHTML = 'create'
+    }
+
+
+    // localStorage.setItem('products' , JSON.stringify(dataArray))
+    showData() 
 }
 
-//clear Data
 
-clear.onclick= function (){
+//how to clear the data from inputs
+
+
+clearPro.onclick = function () {
     title.value = ''
     price.value = ''
     taxes.value = ''
     ads.value = ''
     discount.value = ''
-    total.innerHTML = ''
-    count.value = ''
     category.value = ''
-
+    count.value = ''
+    total.innerHTML = 'Resulte : '
+    
 }
 
-//show Data
 
-function showData(){
-    let table='';
-    for (let i=0; i<proArr.length; i++){
-        table =
-        `
-        <td>${[i]}</td>
-        <td>${proArr[i].title}</td>
-        <td>${proArr[i].price}</td>
-        <td>${proArr[i].taxes}</td>
-        <td>${proArr[i].ads}</td>
-        <td>${proArr[i].discount}</td>
-        <td>${proArr[i].category}</td>
-        <td>${proArr[i].total}</td>
-        <td><button>update</button></td>
-        <td><button>delete</button></td>`
-    }
-    document.getElementById('tbody').innerHTML= table;
+//how to show the products
+
+
+function showData() {
+    let table = '';
+    for (let i = 0; i<dataArray.length ; i++ ) {
+        table += 
+    `<tr>
+        <td>${i}</td>
+        <td>${dataArray[i].title}</td>
+        <td>${dataArray[i].price}</td>
+        <td>${dataArray[i].taxes}</td>
+        <td>${dataArray[i].ads}</td>
+        <td>${dataArray[i].discount}</td>
+        <td>${dataArray[i].category}</td>
+        <td><button onclick = "updateItem(${i})">update</button></td>
+        <td><button onclick = "deleteItem(${i})">delete</button></td>
+        </tr>`
+    }  
+
+    document.getElementById('tbody').innerHTML = table;
 }
 
+
+
+
+//How to delete item
+
+function deleteItem(i){
+    dataArray.splice(i , 1)
+    localStorage.deleteItem = JSON.stringify(dataArray)
+    showData()
+}
+
+
+
+function updateItem(i){
+    title.value = dataArray[i].title
+    price.value = dataArray[i].price
+    discount.value = dataArray[i].discount
+    ads.value = dataArray[i].ads
+    taxes.value = dataArray[i].taxes
+    category.value = dataArray[i].category
+    getTotal()
+    create.innerHTML = 'Update'
+    aii = i;
+}

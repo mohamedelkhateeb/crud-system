@@ -65,7 +65,7 @@ create.onclick = function() {
     }else{
         dataArray[aii] = proObj;
         mood = 'create'
-        create.innerHTML = 'create'
+        create.innerHTML = 'Create'
     }
 
 
@@ -134,6 +134,7 @@ function updateItem(i){
     taxes.value = dataArray[i].taxes
     category.value = dataArray[i].category
     getTotal()
+    mood = 'update'
     create.innerHTML = 'Update'
     aii = i;
 }

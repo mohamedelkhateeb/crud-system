@@ -11,9 +11,9 @@ body {
 	height: 100vh;
 }
 
-body , html {
-    overflow-x: hidden;
-}
+/* body , html {
+    overflow-x: scroll;
+} */
 
 @keyframes gradient {
 	0% {

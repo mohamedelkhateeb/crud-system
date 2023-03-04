@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crud system</title>
+    <link rel="icon" type="image/x-icon" href="1238945.png" >
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    
+<div class="crud">
+    <div class="container">
+    <div class="header">
+        <h2>CRUD SYSTEM</h2>
+        <p>HOW TO MANEGE YOUR PRODUCTS </p>
+    </div>
+    <div class="content d-flex">
+    <div class="inputs">
+        <input type="text" placeholder="Title of Product" id="title">
+        <input onkeyup="getTotal()" type="number" placeholder=" Price of Product" id="price">
+        <input onkeyup="getTotal()"type="number" placeholder="Taxes of product" id="taxes">
+            <input onkeyup="getTotal()"type="number" placeholder="Ads of product" id="ads">
+            <input class="discount" onkeyup="getTotal()"type="number" placeholder="Discount of product" id="discount">
+            <small id="total">Result : </small>
+            <input class="custom" type="number" placeholder="number of products" id="count">
+            <input class="custom" type="text" placeholder="category of product" id="category">
+            <button class="btn" id="create">Create</button>
+            <button class="btn" id="clear">clear</button>
+    </div>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>price</th>
+            <th>taxes</th>
+            <th>ads</th>
+            <th>discount</th>
+            <th>category</th>
+            <th>update</th>
+            <th>delete</th>
+        </tr>
+        <tbody id="tbody">
+            
+        </tbody>
+    </table>
+    </div>
+    </div>
+</div>
+<script src="js/main.js"></script>
+</body>
+</html>
